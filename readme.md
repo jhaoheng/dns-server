@@ -4,6 +4,11 @@
 
 # 目的
 - 透過 docker 建立 dns-server, 並可以從外部網路連線 dns-server 進行判斷
+- flow
+    1. device set dns = dns-server ip
+    2. device request DomainName
+    3. device wifi dns service -> dns-server -> get DomainName IP
+    4. device use IP to access service
 - 範例是
     - dns-server = $yourComputerIP:53/udp
     - nginx = $yourComputerIP:80
@@ -27,12 +32,12 @@
     - `host nginx.default.com 10.0.1.3` : 會顯示你指定的 ip 位置
 - 用 browser 測試
     1. 在 wifi 中, 設定 dns server 為本機 ip
-    2. 開啟 browser, 輸入 nginx.max.com
+    2. 開啟 browser, 輸入 nginx.default.com
 - 在手機端
     1. 連線到 wifi, 同一個區域網路
     2. 更新 dns = 10.0.1.3
     3. 重新連線 wifi
-    4. 在手機端輸入 nginx.max.com
+    4. 在手機端輸入 nginx.default.com
 
 
 
