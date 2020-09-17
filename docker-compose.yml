@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+  bind9:
+    image: bind9
+    container_name: dns-server
+    ports:
+      - 53:53/udp
+    volumes:
+      - ./named.conf.options:/etc/bind/named.conf.options
+      - ./named.conf.local:/etc/bind/named.conf.local
+      - ./zones:/etc/bind/zones
+    networks:
+      dnsnetwork:
+        ipv4_address: "172.20.0.2"
+
+  nginx:
+    image: nginx:1.19.2
+    container_name: nginx
+    command: nginx -g "daemon off;"
+    ports:
+      - 80:80
+    dns:
+      - "172.20.0.2"
+    networks:
+      dnsnetwork:
+        ipv4_address: "172.20.0.3"
+
+networks:
+  dnsnetwork:
+    name: dnsnetwork
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "172.20.0.0/16"
+  

@@ -1,0 +1,4 @@
+zone "default.com" {
+    type master;
+    file "/etc/bind/zones/default.com";
+};
